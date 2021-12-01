@@ -1,6 +1,8 @@
 package com.koendevries.aoc2021.day1
 
-import com.koendevries.aoc2021.*
+import com.koendevries.aoc2021.Assignment
+import com.koendevries.aoc2021.AssignmentPart
+import com.koendevries.aoc2021.File
 import org.junit.Test
 
 
@@ -11,16 +13,16 @@ class Day1 {
 
     @Test
     fun `should solve 1a`() {
-        numbers.filterIncreasing()
-            .count()
+        numbers.windowed(2)
+            .count { it[1] > it[0] }
             .also(::println)
     }
 
     @Test
     fun `should solve 1b`() {
-        numbers.windowed(3, 1, false, List<Int>::sum)
-            .filterIncreasing()
-            .count()
+        numbers.windowed(4)
+            .count { it[3] > it[0] }
             .also(::println)
     }
+
 }
