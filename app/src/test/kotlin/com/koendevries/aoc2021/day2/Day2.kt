@@ -9,7 +9,7 @@ class Day2 {
 
     private val input = File(Assignment(2, Part.A))
         .readLines()
-        .map(String::toSubmarineCommand)
+        .map(::submarineCommandOf)
 
     @Test
     fun `should solve 2a`() {
