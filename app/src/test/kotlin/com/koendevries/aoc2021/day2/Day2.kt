@@ -14,7 +14,7 @@ class Day2 {
     @Test
     fun `should solve 2a`() {
         input
-            .fold(SubmarinePosition(0L, 0L, 0L), ::applyA)
+            .fold(SubmarinePosition(0L, 0L, 0L), ::applySubmarineCommandA)
             .run { horizontalPosition * depth }
             .also(::println)
     }
@@ -22,7 +22,7 @@ class Day2 {
     @Test
     fun `should solve 2b`() {
         input
-            .fold(SubmarinePosition(0L, 0L, 0L), ::applyB)
+            .fold(SubmarinePosition(0L, 0L, 0L), ::applySubmarineCommandB)
             .run { horizontalPosition * depth }
             .also(::println)
     }
