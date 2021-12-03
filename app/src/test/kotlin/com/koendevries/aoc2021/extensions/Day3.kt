@@ -1,4 +1,4 @@
-package com.koendevries.aoc2021.day3
+package com.koendevries.aoc2021.extensions
 
 import com.koendevries.aoc2021.Assignment
 import com.koendevries.aoc2021.File
@@ -22,23 +22,21 @@ class Day3 {
 
     @Test
     fun `should solve 3b`() {
-        solveB(diagnosticReport, ::occursMost)
-            .times(solveB(diagnosticReport, ::occursLeast))
+        findRating(diagnosticReport, ::occursMost)
+            .times(findRating(diagnosticReport, ::occursLeast))
             .also(::println)
     }
 
 }
 
-fun solveB(report: List<String>, bitCriteria: (s: String) -> Char, index: Int = 0): Int {
+fun findRating(report: List<String>, bitCriteria: (s: String) -> Char, index: Int = 0): Int {
     if (report.size == 1) {
         return report[0].toInt(2)
     }
-    val column = report.transpose()[index]
-    val rowIndicesToStay = bitCriteria(column)
-        .let { char -> column.withIndex().filter { char == it.value } }
-        .map(IndexedValue<Char>::index)
+    val rowIndicesToStay = report.transpose()[index]
+        .run { indicesOf(bitCriteria(this)) }
 
-    return solveB(
+    return findRating(
         report.filterIndexed { i, _ -> rowIndicesToStay.contains(i) },
         bitCriteria,
         index + 1
@@ -47,12 +45,3 @@ fun solveB(report: List<String>, bitCriteria: (s: String) -> Char, index: Int = 
 
 fun occursMost(line: String) = if (line.occurences('0') > line.occurences('1')) '0' else '1'
 fun occursLeast(line: String) = if (line.occurences('0') <= line.occurences('1')) '0' else '1'
-fun String.occurences(search: Char): Int = count { it == search }
-
-fun List<String>.transpose() = if (isEmpty()) {
-    emptyList()
-} else {
-    fold(List(first().length) { "" }) { acc, line ->
-        acc.mapIndexed { index, s -> s + line[index] }
-    }
-}
