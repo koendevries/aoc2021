@@ -1,8 +1,8 @@
 package com.koendevries.aoc2021.day2
 
-import com.koendevries.aoc2021.Assignment
-import com.koendevries.aoc2021.File
-import com.koendevries.aoc2021.Part
+import com.koendevries.aoc2021.io.Assignment
+import com.koendevries.aoc2021.io.File
+import com.koendevries.aoc2021.io.Part
 import org.junit.Test
 
 class Day2 {

@@ -1,4 +1,4 @@
-package com.koendevries.aoc2021
+package com.koendevries.aoc2021.io
 
 import java.io.File
 
