@@ -13,15 +13,21 @@ class Day6 {
         .map(String::toLong)
 
     private val cache = mutableMapOf(0L to 1L)
-    private fun familySizeAfter(days: Long): Long = cache.getOrPut(days) { if (days < 1) 1 else familySizeAfter(days - 7) + familySizeAfter(days - 9) }
+    private fun familySizeAfter(days: Long): Long = cache.getOrPut(days) {
+        if (days < 1) {
+            1L
+        } else {
+            familySizeAfter(days - 7L) + familySizeAfter(days - 9L)
+        }
+    }
 
     @Test
     fun `should solve 6a`() {
-        input.sumOf { familySizeAfter(80 - it) }.also(::println)
+        input.sumOf { familySizeAfter(80L - it) }.also(::println)
     }
 
     @Test
     fun `should solve 6b`() {
-        input.sumOf { familySizeAfter(256 - it) }.also(::println)
+        input.sumOf { familySizeAfter(256L - it) }.also(::println)
     }
 }
