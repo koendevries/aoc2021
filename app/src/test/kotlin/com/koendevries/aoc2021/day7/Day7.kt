@@ -5,7 +5,7 @@ import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
 import com.koendevries.aoc2021.io.Part
 import org.junit.Test
-import kotlin.math.absoluteValue
+import kotlin.math.abs
 
 class Day7 {
 
@@ -17,7 +17,7 @@ class Day7 {
     @Test
     fun `should solve 7a`() {
         rangeOf(positions)
-            .fold(listOf<Int>()) { acc, position -> acc + positions.sumOf { it.minus(position).absoluteValue } }
+            .fold(listOf<Int>()) { acc, position -> acc + positions.sumOf { abs(it - position) } }
             .minOf { it }
             .also(::println)
     }
@@ -33,5 +33,5 @@ class Day7 {
 }
 
 private fun amountOfFuel(from: Int, to: Int): Int = 1
-    .rangeTo(from.minus(to).absoluteValue)
+    .rangeTo(abs(from - to))
     .fold(0, Int::plus)
