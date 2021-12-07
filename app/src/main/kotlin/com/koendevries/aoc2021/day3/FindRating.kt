@@ -1,8 +1,8 @@
 package com.koendevries.aoc2021.day3
 
-import com.koendevries.aoc2021.extensions.indicesOf
-import com.koendevries.aoc2021.extensions.occurences
-import com.koendevries.aoc2021.extensions.transpose
+import com.koendevries.aoc2021.collections.extensions.indicesOf
+import com.koendevries.aoc2021.collections.extensions.occurences
+import com.koendevries.aoc2021.collections.extensions.transpose
 
 tailrec fun findRating(report: List<String>, bitCriteria: (s: String) -> Char, index: Int = 0): Int {
     if (report.size == 1) {

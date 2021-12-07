@@ -1,6 +1,6 @@
 package com.koendevries.aoc2021.day3
 
-import com.koendevries.aoc2021.extensions.transpose
+import com.koendevries.aoc2021.collections.extensions.transpose
 import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
 import com.koendevries.aoc2021.io.Part

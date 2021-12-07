@@ -1,4 +1,4 @@
-package com.koendevries.aoc2021.extensions
+package com.koendevries.aoc2021.collections.extensions
 
 fun List<String>.transpose() = if (isEmpty()) {
     emptyList()
