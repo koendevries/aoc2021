@@ -37,12 +37,12 @@ class Day8 {
         .map(digitByUniqueSignalPattern(line.definition)::getValue)
         .reduce { acc, i -> acc * 10 + i }
 
-    private fun digitByUniqueSignalPattern(patterns: List<UniqueSignalPattern>) = (patterns - digitByDefinition(patterns).values)
-        .fold(digitByDefinition(patterns)) { acc, current -> acc + findDigit(current, acc) }
+    private fun digitByUniqueSignalPattern(patterns: List<UniqueSignalPattern>) = (patterns - findEasyDigitByUniqueSignalPattern(patterns).values)
+        .fold(findEasyDigitByUniqueSignalPattern(patterns)) { acc, current -> acc + findDigit(current, acc) }
         .entries
         .associate { (digit, uniqueSignalPattern) -> Pair(uniqueSignalPattern, digit) }
 
-    private fun digitByDefinition(definition: List<UniqueSignalPattern>) = uniqueSizeByDigit
+    private fun findEasyDigitByUniqueSignalPattern(definition: List<UniqueSignalPattern>) = uniqueSizeByDigit
         .entries
         .associate { (digit, size) -> Pair(digit, definition.find { it.size == size }!!) }
 
