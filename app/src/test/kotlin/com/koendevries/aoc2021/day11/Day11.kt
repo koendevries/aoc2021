@@ -22,20 +22,12 @@ class Day11 {
 
     @Test
     fun `should solve 11a`() {
-        gridSequence().take(101).sumOf(::flashes).also(::println)
+        generateSequence(next(input)) { next(it) }.take(100).sumOf(::flashes).also(::println)
     }
 
     @Test
     fun `should solve 11b`() {
-        gridSequence().takeWhile { flashes(it) != 100 }.count().also(::println)
-    }
-
-    private fun gridSequence() = sequence {
-        var current = input
-        while (true) {
-            yield(current)
-            current = next(current)
-        }
+        generateSequence(input) { next(it) }.takeWhile { flashes(it) != 100 }.count().also(::println)
     }
 
     private fun next(grid: Grid) = increaseFirstTodo(grid, grid.keys.asSequence(), emptySet())
