@@ -9,7 +9,7 @@ class Day12 {
 
     private val connections = File(Assignment(12, Part.A))
         .readLines()
-        .map(::readEdge)
+        .map(::readConnection)
 
     private val neighbours = connections.flatten()
         .distinct()
@@ -17,35 +17,53 @@ class Day12 {
 
     @Test
     fun `should solve 12a`() {
-        count().also(::println)
+        println(pathsVisitingSmallCavesOnce())
     }
 
-    private fun count(visited: List<Vertex> = emptyList(), current: Vertex = START): Int = when (current) {
-        is END -> 1
-        in visited -> when (current) {
-            is START -> 0
-            is SmallCave -> 0
-            else -> neighbours[current]!!.sumOf { neighbour -> count(visited + current, neighbour) }
+    @Test
+    fun `hould solve 12b`() {
+        println(pathsVisitingSmallCaveTwice())
+    }
+
+    private fun pathsVisitingSmallCavesOnce(current: Cave = Start, visited: List<Cave> = emptyList()): Int = when (current) {
+        is End -> 1
+        is BigCave -> neighbours[current]!!.sumOf { neighbour -> pathsVisitingSmallCavesOnce(neighbour, visited + current) }
+        is Start -> when {
+            visited.isEmpty() -> neighbours[current]!!.sumOf { neighbour -> pathsVisitingSmallCavesOnce(neighbour, visited + current) }
+            else -> 0
         }
-        else -> neighbours[current]!!.sumOf { neighbour -> count(visited + current, neighbour) }
+        is SmallCave -> when (current) {
+            in visited -> 0
+            else -> neighbours[current]!!.sumOf { neighbour -> pathsVisitingSmallCavesOnce(neighbour, visited + current) }
+        }
+    }
+
+    private fun pathsVisitingSmallCaveTwice(current: Cave = Start, visited: List<Cave> = emptyList()): Int = when (current) {
+        is End -> 1
+        is BigCave -> neighbours[current]!!.sumOf { neighbour -> pathsVisitingSmallCaveTwice(neighbour, visited + current) }
+        is Start -> when {
+            visited.isEmpty() -> neighbours[current]!!.sumOf { neighbour -> pathsVisitingSmallCaveTwice(neighbour, visited + current) }
+            else -> 0
+        }
+        is SmallCave -> when (current) {
+            in visited -> neighbours[current]!!.sumOf { neighbour -> pathsVisitingSmallCavesOnce(neighbour, visited + current) }
+            else -> neighbours[current]!!.sumOf { neighbour -> pathsVisitingSmallCaveTwice(neighbour, visited + current) }
+        }
     }
 
 
-    private fun readEdge(line: String) = line.split("-").map(::readVertex)
+    private fun readConnection(line: String) = line.split("-").map(::readCave)
 
-    private fun readVertex(name: String) = when {
-        name == "start" -> START
-        name == "end" -> END
+    private fun readCave(name: String) = when {
+        name == "start" -> Start
+        name == "end" -> End
         name.all(Char::isUpperCase) -> BigCave(name)
         else -> SmallCave(name)
     }
 }
 
-
-sealed interface Vertex
-object START : Vertex
-object END : Vertex
-data class SmallCave(val name: String) : Vertex
-data class BigCave(val name: String) : Vertex
-
-data class Edge(val source: Vertex, val destination: Vertex)
+private sealed interface Cave
+private object Start : Cave
+private object End : Cave
+private data class SmallCave(val name: String) : Cave
+private data class BigCave(val name: String) : Cave
