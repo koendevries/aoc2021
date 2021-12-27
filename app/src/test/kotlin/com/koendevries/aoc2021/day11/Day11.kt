@@ -6,9 +6,9 @@ import com.koendevries.aoc2021.io.Part.A
 import org.junit.Test
 
 typealias Point = Pair<Int, Int>
-typealias Grid = Map<Point, Int>
+typealias EnergyGrid = Map<Point, Int>
 
-private val directions = sequenceOf(
+private val directions = listOf(
     Point(-1, -1), Point(-1, 0), Point(-1, 1),
     Point(0, -1), Point(0, 1),
     Point(1, -1), Point(1, 0), Point(1, 1)
@@ -22,35 +22,41 @@ class Day11 {
 
     @Test
     fun `should solve 11a`() {
-        generateSequence(next(input)) { next(it) }.take(100).sumOf(::flashes).also(::println)
+        generateSequence(nextGrid(input)) { (grid, _) -> nextGrid(grid) }
+            .take(100)
+            .sumOf { (_, flashes) -> flashes }
+            .also(::println)
     }
 
     @Test
     fun `should solve 11b`() {
-        generateSequence(input) { next(it) }.takeWhile { flashes(it) != 100 }.count().also(::println)
+        generateSequence(input to 0) { (grid, _) -> nextGrid(grid) }
+            .takeWhile { (_, flashes) -> flashes != 100 }
+            .count()
+            .also(::println)
     }
-
-    private fun next(grid: Grid) = increaseFirstTodo(grid, grid.keys.asSequence(), emptySet())
-
-    private fun increaseFirstTodo(grid: Grid, todo: Sequence<Point>, flashed: Set<Point>): Grid = when (val point = todo.firstOrNull()) {
-        null -> grid
-        else -> when {
-            flashed.contains(point) -> increaseFirstTodo(grid, todo.drop(1), flashed)
-            grid[point]!! < 9 -> increaseFirstTodo(
-                grid + Pair(point, grid[point]!! + 1),
-                todo.drop(1),
-                flashed
-            )
-            else -> increaseFirstTodo(
-                grid + Pair(point, 0),
-                todo.drop(1) + neighbours(point, grid),
-                flashed + point
-            )
-        }
-    }
-
 }
 
-fun neighbours(point: Point, grid: Grid) = directions.map(point::plus).filter(grid::contains)
-fun flashes(grid: Grid) = grid.values.count(0::equals)
+private fun nextGrid(grid: EnergyGrid) = grid
+    .mapValues { (_, energy) -> energy + 1 }
+    .let { g -> handleFlashes(g, g.filter { (_, energy) -> energy > 9 }.keys.toList()) }
+    .let { g -> Pair(g, flashes(g)) }
+
+private fun handleFlashes(grid: EnergyGrid, todos: List<Point>): EnergyGrid = when {
+    todos.isEmpty() -> grid
+    else -> handleTodos(grid, todos)
+}
+
+private fun handleTodos(grid: EnergyGrid, todos: List<Point>): EnergyGrid {
+    val point = todos.first()
+    val energy = grid[point]!!
+    return when {
+        energy == 0 -> handleFlashes(grid = grid, todos = todos.drop(1))
+        energy < 9 -> handleFlashes(grid = grid + Pair(point, energy + 1), todos = todos.drop(1))
+        else -> handleFlashes(grid = grid + Pair(point, 0), todos = todos.drop(1) + neighbours(point, grid))
+    }
+}
+
+fun neighbours(point: Point, grid: EnergyGrid) = directions.map(point::plus).filter(grid::contains)
+fun flashes(grid: EnergyGrid) = grid.values.count(0::equals)
 operator fun Point.plus(other: Point) = Point(first + other.first, second + other.second)
