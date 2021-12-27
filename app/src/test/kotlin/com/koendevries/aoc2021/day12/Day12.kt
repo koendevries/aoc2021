@@ -17,43 +17,29 @@ class Day12 {
 
     @Test
     fun `should solve 12a`() {
-        countSmallCaveOncePaths(listOf(Start)).also(::println)
+        countPaths(listOf(Start)).also(::println)
     }
 
     @Test
     fun `should solve 12b`() {
-        countSingleSmallCaveTwicePaths(listOf(Start)).also(::println)
+        countPaths(listOf(Start), ::countRemainingPath).also(::println)
     }
 
-    private fun countSmallCaveOncePaths(visited: List<Cave>): Int = when (val current = visited.last()) {
+    private fun countPaths(visited: List<Cave>, countRemaining: (List<Cave>) -> Int = { 0 }): Int = when (val current = visited.last()) {
         is End -> 1
-        is BigCave -> countRemainingPath(visited)
+        is BigCave -> countRemainingPath(visited, countRemaining)
         is Start -> when (visited.size) {
-            1 -> countRemainingPath(visited)
+            1 -> countRemainingPath(visited, countRemaining)
             else -> 0
         }
         is SmallCave -> when (current) {
-            in visited.dropLast(1) -> 0
-            else -> countRemainingPath(visited)
+            in visited.dropLast(1) -> countRemaining(visited)
+            else -> countRemainingPath(visited, countRemaining)
         }
     }
 
-    private fun countSingleSmallCaveTwicePaths(visited: List<Cave>): Int = when (val current = visited.last()) {
-        is End -> 1
-        is BigCave -> countRemainingPath(visited, ::countSingleSmallCaveTwicePaths)
-        is Start -> when (visited.size) {
-            1 -> countRemainingPath(visited, ::countSingleSmallCaveTwicePaths)
-            else -> 0
-        }
-        is SmallCave -> when (current) {
-            in visited.dropLast(1) -> countRemainingPath(visited, ::countSmallCaveOncePaths)
-            else -> countRemainingPath(visited, ::countSingleSmallCaveTwicePaths)
-        }
-    }
-
-    private fun countRemainingPath(visited: List<Cave>, countRemaining: (List<Cave>) -> Int = ::countSmallCaveOncePaths) =
-        neighbours[visited.last()]!!.sumOf { neighbour -> countRemaining(visited + neighbour) }
-
+    private fun countRemainingPath(visited: List<Cave>, countRemaining: (List<Cave>) -> Int = { 0 }) =
+        neighbours[visited.last()]!!.sumOf { neighbour -> countPaths(visited + neighbour, countRemaining) }
 
     private fun readConnection(line: String) = line.split("-").map(::readCave)
 
