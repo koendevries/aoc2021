@@ -5,8 +5,8 @@ import com.koendevries.aoc2021.io.File
 import com.koendevries.aoc2021.io.Part.A
 import org.junit.Test
 
-typealias Point = Pair<Int, Int>
-typealias EnergyGrid = Map<Point, Int>
+private typealias Point = Pair<Int, Int>
+private typealias EnergyGrid = Map<Point, Int>
 
 private val directions = listOf(
     Point(-1, -1), Point(-1, 0), Point(-1, 1),
@@ -59,4 +59,4 @@ private fun handleTodos(grid: EnergyGrid, todos: List<Point>): EnergyGrid {
 
 fun neighbours(point: Point, grid: EnergyGrid) = directions.map(point::plus).filter(grid::contains)
 fun flashes(grid: EnergyGrid) = grid.values.count(0::equals)
-operator fun Point.plus(other: Point) = Point(first + other.first, second + other.second)
+private operator fun Point.plus(other: Point) = Point(first + other.first, second + other.second)

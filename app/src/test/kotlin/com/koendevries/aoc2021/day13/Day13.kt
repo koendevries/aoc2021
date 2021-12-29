@@ -1,6 +1,6 @@
 package com.koendevries.aoc2021.day13
 
-import com.koendevries.aoc2021.geo.Coordinate
+import com.koendevries.aoc2021.geo.Point
 import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
 import com.koendevries.aoc2021.io.Part
@@ -27,30 +27,30 @@ class Day13 {
             .run { print(first) }
     }
 
-    private fun print(coordinates: Set<Coordinate>) = (0..coordinates.maxOf(Coordinate::y))
+    private fun print(points: Set<Point>) = (0..points.maxOf(Point::y))
         .forEach { y ->
-            (0..coordinates.maxOf(Coordinate::x))
-                .forEach { x -> if (coordinates.contains(Coordinate(x, y))) print("#") else print(" ") }
+            (0..points.maxOf(Point::x))
+                .forEach { x -> if (points.contains(Point(x, y))) print("#") else print(" ") }
                 .also { println() }
         }
 
-    private fun fold(dots: Set<Coordinate>, instructions: List<Instruction>) = Pair(
+    private fun fold(dots: Set<Point>, instructions: List<Instruction>) = Pair(
         fold(dots, instructions.first()),
         instructions.drop(1)
     )
 
-    private fun fold(dots: Set<Coordinate>, instruction: Instruction): Set<Coordinate> = when (instruction) {
+    private fun fold(dots: Set<Point>, instruction: Instruction): Set<Point> = when (instruction) {
         is HorizontalFold -> dots.mapNotNull { foldHorizontal(it, instruction) }.toSet()
         is VerticalFold -> dots.mapNotNull { foldVertical(it, instruction) }.toSet()
     }
 
-    private fun foldHorizontal(dot: Coordinate, instruction: HorizontalFold): Coordinate? = when {
+    private fun foldHorizontal(dot: Point, instruction: HorizontalFold): Point? = when {
         dot.x < instruction.position -> dot
         dot.x > instruction.position -> dot.copy(x = instruction.position.minus(dot.x - instruction.position))
         else -> null
     }
 
-    private fun foldVertical(dot: Coordinate, instruction: VerticalFold): Coordinate? = when {
+    private fun foldVertical(dot: Point, instruction: VerticalFold): Point? = when {
         dot.y < instruction.position -> dot
         dot.y > instruction.position -> dot.copy(y = instruction.position.minus(dot.y - instruction.position))
         else -> null
@@ -70,7 +70,7 @@ class Day13 {
 
     private fun readCoordinate(line: String) = line.split(",")
         .map(String::toInt)
-        .let { (x, y) -> Coordinate(x, y) }
+        .let { (x, y) -> Point(x, y) }
 
 }
 

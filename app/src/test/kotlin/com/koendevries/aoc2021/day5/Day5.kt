@@ -1,6 +1,6 @@
 package com.koendevries.aoc2021.day5
 
-import com.koendevries.aoc2021.geo.Coordinate
+import com.koendevries.aoc2021.geo.Point
 import com.koendevries.aoc2021.geo.between
 import com.koendevries.aoc2021.geo.isUnidirectional
 import com.koendevries.aoc2021.io.Assignment
@@ -38,4 +38,4 @@ private fun readEdge(line: String) = line.split(Regex("\\s+"))
     .run { Pair(readCoordinate(first()), readCoordinate(last())) }
 
 private fun readCoordinate(line: String) = line.split(",")
-    .run { Coordinate(first().toInt(), last().toInt()) }
+    .run { Point(first().toInt(), last().toInt()) }
