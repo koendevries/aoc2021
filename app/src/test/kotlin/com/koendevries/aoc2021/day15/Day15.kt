@@ -33,16 +33,22 @@ class Day15 {
     }
 
     private fun expand(grid: Grid, times: Int): Grid {
-        val target = grid.keys.maxByOrNull { point -> point.x * point.y }
-        val width = target?.x?.plus(1) ?: 0
-        val height = target?.y?.plus(1) ?: 0
+        val target = grid.keys.maxByOrNull { point -> point.x * point.y }!!
+        val width = target.x + 1
+        val height = target.y + 1
 
         return List(times) { x: Int ->
             List(times) { y ->
                 grid.map { (point, weight) ->
-                    Pair(
-                        Point(x = x * width + point.x, y = y * height + point.y),
-                        (1 + (weight - 1 + x + y) % 9)
+                    WeightedPoint(
+                        Point(
+                            x = x * width + point.x,
+                            y = y * height + point.y
+                        ),
+                        when (val amount = (weight + x + y) % 9) {
+                            0 -> 9
+                            else -> amount
+                        }
                     )
                 }
             }
