@@ -1,13 +1,12 @@
 package com.koendevries.aoc2021.day4
 
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 class Day4 {
 
-    private val bingo: Pair<List<Int>, List<BingoCard>> = File(Assignment(4, Part.A))
+    private val bingo: Pair<List<Int>, List<BingoCard>> = File(Input(4))
         .readText()
         .split("\n\n")
         .partition { it.contains(",") }

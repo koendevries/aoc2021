@@ -3,14 +3,13 @@ package com.koendevries.aoc2021.day5
 import com.koendevries.aoc2021.geo.Point
 import com.koendevries.aoc2021.geo.between
 import com.koendevries.aoc2021.geo.isUnidirectional
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 class Day5 {
 
-    private val edges = File(Assignment(5, Part.A))
+    private val edges = File(Input(5))
         .readLines()
         .map(::readEdge)
 

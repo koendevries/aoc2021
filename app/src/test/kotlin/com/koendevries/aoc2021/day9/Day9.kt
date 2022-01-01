@@ -1,13 +1,12 @@
 package com.koendevries.aoc2021.day9
 
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 class Day9 {
 
-    private val heightMap = File(Assignment(9, Part.A))
+    private val heightMap = File(Input(9))
         .readLines()
         .map { line -> line.map(Char::digitToInt) }
 

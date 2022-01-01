@@ -1,13 +1,12 @@
 package com.koendevries.aoc2021.day10
 
 import com.koendevries.aoc2021.collections.extensions.median
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 class Day10 {
-    private val lines = File(Assignment(10, Part.A)).readLines()
+    private val lines = File(Input(10)).readLines()
 
     private val openCharByClosingChar = mapOf(')' to '(', ']' to '[', '}' to '{', '>' to '<')
     private val pointsByIllegalChar = mapOf(')' to 3, ']' to 57, '}' to 1197, '>' to 25137)

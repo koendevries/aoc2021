@@ -1,8 +1,7 @@
 package com.koendevries.aoc2021.day14
 
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 import java.util.Collections.max
 import java.util.Collections.min
@@ -14,7 +13,7 @@ private typealias State = Pair<PairCounter, CharCounter>
 
 class Day14 {
 
-    private val input = File(Assignment(14, Part.A)).readText()
+    private val input = File(Input(14)).readText()
         .split("\n\n")
 
     @Test

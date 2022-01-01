@@ -1,13 +1,12 @@
 package com.koendevries.aoc2021.day2
 
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 class Day2 {
 
-    private val input = File(Assignment(2, Part.A))
+    private val input = File(Input(2))
         .readLines()
         .map(::submarineCommandOf)
 

@@ -1,13 +1,12 @@
 package com.koendevries.aoc2021.day12
 
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 class Day12 {
 
-    private val connections = File(Assignment(12, Part.A))
+    private val connections = File(Input(12))
         .readLines()
         .map(::readConnection)
 

@@ -1,13 +1,12 @@
 package com.koendevries.aoc2021.day1
 
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 
 class Day1 {
-    private val numbers = File(Assignment(1, Part.A))
+    private val numbers = File(Input(1))
         .readLines()
         .map(String::toInt)
 

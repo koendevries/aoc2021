@@ -1,8 +1,7 @@
 package com.koendevries.aoc2021.day8
 
-import com.koendevries.aoc2021.io.Assignment
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.Part
+import com.koendevries.aoc2021.io.util.Input
 import org.junit.Test
 
 typealias UniqueSignalPattern = Set<Char>
@@ -13,7 +12,7 @@ class Day8 {
 
     private val uniqueSizeByDigit = mapOf(1 to 2, 7 to 3, 4 to 4, 8 to 7)
 
-    private fun readInput(part: Part): List<Line> = File(Assignment(8, part)).readLines().map(::readLine)
+    private val input = File(Input(8)).readLines().map(::readLine)
 
     private fun readLine(line: String) = line.split(" | ")
         .map { it.split(Regex("\\s+")) }
@@ -23,12 +22,12 @@ class Day8 {
 
     @Test
     fun `should solve 8a`() {
-        readInput(Part.A).sumOf(::numberOfEasyDigits).also(::println)
+        input.sumOf(::numberOfEasyDigits).also(::println)
     }
 
     @Test
     fun `should solve 8b`() {
-        readInput(Part.A).sumOf(::valueOf).also(::println)
+        input.sumOf(::valueOf).also(::println)
     }
 
     private fun numberOfEasyDigits(line: Line) = line.output.count { uniqueSizeByDigit.values.contains(it.size) }
