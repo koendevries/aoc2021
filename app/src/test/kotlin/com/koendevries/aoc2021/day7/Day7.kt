@@ -2,13 +2,13 @@ package com.koendevries.aoc2021.day7
 
 import com.koendevries.aoc2021.collections.rangeOf
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.util.Input
+import com.koendevries.aoc2021.io.util.StandardInput
 import org.junit.Test
 import kotlin.math.abs
 
 class Day7 {
 
-    private val positions = File(Input(7))
+    private val positions = File(StandardInput(7))
         .readText()
         .split(",")
         .map(String::toInt)

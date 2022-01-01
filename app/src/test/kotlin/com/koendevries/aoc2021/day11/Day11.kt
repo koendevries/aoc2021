@@ -1,7 +1,7 @@
 package com.koendevries.aoc2021.day11
 
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.util.Input
+import com.koendevries.aoc2021.io.util.StandardInput
 import org.junit.Test
 
 private typealias Point = Pair<Int, Int>
@@ -14,7 +14,7 @@ private val directions = listOf(
 )
 
 class Day11 {
-    private val input: Map<Point, Int> = File(Input(11))
+    private val input: Map<Point, Int> = File(StandardInput(11))
         .readLines()
         .flatMapIndexed() { y, row -> row.mapIndexed() { x, energy -> Pair(Point(x, y), energy.digitToInt()) } }
         .toMap()

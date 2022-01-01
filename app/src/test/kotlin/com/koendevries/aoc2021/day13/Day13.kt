@@ -2,12 +2,12 @@ package com.koendevries.aoc2021.day13
 
 import com.koendevries.aoc2021.geo.Point
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.util.Input
+import com.koendevries.aoc2021.io.util.StandardInput
 import org.junit.Test
 
 class Day13 {
 
-    val input = File(Input(13)).readText()
+    val input = File(StandardInput(13)).readText()
         .split("\n\n")
         .let { (dots, instructions) -> readDots(dots) to readInstructions(instructions) }
 

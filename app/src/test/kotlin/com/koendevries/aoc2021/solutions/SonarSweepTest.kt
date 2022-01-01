@@ -1,13 +1,14 @@
 package com.koendevries.aoc2021.solutions
 
-import com.koendevries.aoc2021.io.util.Input
-import com.koendevries.aoc2021.io.util.InputExample
+import com.koendevries.aoc2021.io.readers.readSonarSweepReport
+import com.koendevries.aoc2021.io.util.ExampleInput
+import com.koendevries.aoc2021.io.util.StandardInput
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
-internal object SonarSweep : ShouldSpec({
+internal object SonarSweepTest : ShouldSpec({
     context("examples") {
-        val input = InputExample(1)
+        val input = readSonarSweepReport(ExampleInput(1))
         should("solve first sonar sweep") {
             sonarSweep(input, 2) shouldBe 7
         }
@@ -18,7 +19,7 @@ internal object SonarSweep : ShouldSpec({
     }
 
     context("standard") {
-        val input = Input(1)
+        val input = readSonarSweepReport(StandardInput(1))
         should("solve first sonar sweep") {
             sonarSweep(input, 2) shouldBe 1832
         }

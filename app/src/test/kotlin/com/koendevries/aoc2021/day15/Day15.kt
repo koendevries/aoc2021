@@ -2,7 +2,7 @@ package com.koendevries.aoc2021.day15
 
 import com.koendevries.aoc2021.geo.Point
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.util.Input
+import com.koendevries.aoc2021.io.util.StandardInput
 import org.junit.Test
 import java.util.*
 
@@ -14,7 +14,7 @@ private val directions = listOf(Point(-1, 0), Point(1, 0), Point(0, -1), Point(0
 
 class Day15 {
 
-    private val input = File(Input(15)).readLines().map { row -> row.map { cost -> cost.digitToInt() } }
+    private val input = File(StandardInput(15)).readLines().map { row -> row.map { cost -> cost.digitToInt() } }
     private val source = Point(0, 0)
     private val grid: Grid = input.flatMapIndexed { y, row -> row.mapIndexed { x, cost -> Point(x, y) to cost } }.toMap()
 

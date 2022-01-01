@@ -2,12 +2,12 @@ package com.koendevries.aoc2021.day3
 
 import com.koendevries.aoc2021.collections.extensions.transpose
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.util.Input
+import com.koendevries.aoc2021.io.util.StandardInput
 import org.junit.Test
 
 class Day3 {
 
-    private val diagnosticReport = File(Input(3))
+    private val diagnosticReport = File(StandardInput(3))
         .readLines()
 
     @Test

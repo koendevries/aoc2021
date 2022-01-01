@@ -4,12 +4,12 @@ import com.koendevries.aoc2021.geo.Point
 import com.koendevries.aoc2021.geo.between
 import com.koendevries.aoc2021.geo.isUnidirectional
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.util.Input
+import com.koendevries.aoc2021.io.util.StandardInput
 import org.junit.Test
 
 class Day5 {
 
-    private val edges = File(Input(5))
+    private val edges = File(StandardInput(5))
         .readLines()
         .map(::readEdge)
 

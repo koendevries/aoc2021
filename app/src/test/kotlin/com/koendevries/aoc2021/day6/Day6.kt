@@ -1,12 +1,12 @@
 package com.koendevries.aoc2021.day6
 
 import com.koendevries.aoc2021.io.File
-import com.koendevries.aoc2021.io.util.Input
+import com.koendevries.aoc2021.io.util.StandardInput
 import org.junit.Test
 
 class Day6 {
 
-    private val input = File(Input(6))
+    private val input = File(StandardInput(6))
         .readText()
         .split(",")
         .map(String::toLong)
