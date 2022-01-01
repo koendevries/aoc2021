@@ -1,4 +1,4 @@
-name: Build and Test with Gradle
+name: Kotlin CI with Gradle
 on:
   push:
     branches: [ $default-branch ]
