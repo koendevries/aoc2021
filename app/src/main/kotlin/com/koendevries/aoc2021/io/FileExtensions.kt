@@ -8,6 +8,6 @@ import java.io.File
 fun File(aocInput: AocInput) = File(
     when (aocInput) {
         is Input -> "src/test/resources/2021/${aocInput.day}.txt"
-        is InputExample -> "src/test/resources/2021/example/${aocInput.day}.txt"
+        is InputExample -> "src/test/resources/2021/examples/${aocInput.day}.txt"
     }
 )
