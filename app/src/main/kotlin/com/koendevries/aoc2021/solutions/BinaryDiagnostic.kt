@@ -1,33 +1,33 @@
 package com.koendevries.aoc2021.solutions
 
+import com.koendevries.aoc2021.collections.extensions.columns
 import com.koendevries.aoc2021.collections.extensions.indicesOf
 import com.koendevries.aoc2021.collections.extensions.occurences
-import com.koendevries.aoc2021.collections.extensions.transpose
 
 typealias Bit = Char
 typealias BinaryNumber = String
-typealias DiagnosticReport = List<BinaryNumber> // TODO: Implement with Grid
+typealias DiagnosticReport = List<BinaryNumber>
 
 private inline fun rate(
     diagnosticReport: DiagnosticReport,
     readBit: (BinaryNumber) -> Bit
-) = transpose(diagnosticReport)
+) = columns(diagnosticReport)
     .map(readBit)
     .joinToString("")
     .toInt(2)
 
 private tailrec fun rating(
-    report: DiagnosticReport,
+    diagnosticReport: DiagnosticReport,
     readBit: (BinaryNumber) -> Bit,
     index: Int = 0
-): Int = if (report.size == 1) {
-    report[0].toInt(2)
+): Int = if (diagnosticReport.size == 1) {
+    diagnosticReport[0].toInt(2)
 } else {
-    val next = transpose(report)
-        .let { transposedReport -> transposedReport[index] }
+    val next = columns(diagnosticReport)
+        .let { columns -> columns[index] }
         .let { column -> column to readBit(column) }
         .let { (column, bit) -> column.indicesOf(bit) }
-        .let { indices -> report.filterIndexed { index, _ -> indices.contains(index) } }
+        .let { indices -> diagnosticReport.filterIndexed { index, _ -> indices.contains(index) } }
 
     rating(next, readBit, index + 1)
 }

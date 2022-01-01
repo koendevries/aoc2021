@@ -1,6 +1,6 @@
 package com.koendevries.aoc2021.collections.extensions
 
-fun transpose(list: List<String>) = if (list.isEmpty()) {
+fun columns(list: List<String>) = if (list.isEmpty()) {
     emptyList()
 } else {
     list.fold(list.init()) { acc, line ->
