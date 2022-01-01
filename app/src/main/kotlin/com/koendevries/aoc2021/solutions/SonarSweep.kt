@@ -7,10 +7,9 @@ import java.io.File
 private typealias SeaFloorDepth = Int
 private typealias SonarSweepReport = List<SeaFloorDepth>
 
-private fun File.readSonarSweepReport(): SonarSweepReport = readLines().map(String::toInt)
+private fun sonarSweepReportOf(file: File): SonarSweepReport = file.readLines().map(String::toInt)
 
-fun sonarSweep(input: AocInput, slidingWindowSize: Int) = File(input)
-    .readSonarSweepReport()
+fun sonarSweep(input: AocInput, slidingWindowSize: Int) = sonarSweepReportOf(File(input))
     .windowed(slidingWindowSize)
     .count { lines -> lines.last() > lines.first() }
 
