@@ -1,9 +1,9 @@
 package com.koendevries.aoc2021.collections.extensions
 
-fun List<String>.transpose() = if (isEmpty()) {
+fun transpose(list: List<String>) = if (list.isEmpty()) {
     emptyList()
 } else {
-    fold(init()) { acc, line ->
+    list.fold(list.init()) { acc, line ->
         acc.mapIndexed { index, s -> s.append(line[index]) }
     }.map(StringBuilder::toString)
 }
