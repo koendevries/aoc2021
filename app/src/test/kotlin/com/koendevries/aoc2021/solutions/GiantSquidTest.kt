@@ -1,6 +1,6 @@
 package com.koendevries.aoc2021.solutions
 
-import com.koendevries.aoc2021.io.readers.readBingo
+import com.koendevries.aoc2021.io.readers.readBingoGame
 import com.koendevries.aoc2021.io.util.ExampleInput
 import com.koendevries.aoc2021.io.util.StandardInput
 import io.kotest.core.spec.style.ShouldSpec
@@ -8,7 +8,7 @@ import io.kotest.matchers.shouldBe
 
 object GiantSquidTest : ShouldSpec({
     context("example") {
-        val bingo = readBingo(ExampleInput(4))
+        val bingo = readBingoGame(ExampleInput(4))
         should("return winning score") {
             winningScore(bingo) shouldBe 4512
         }
@@ -19,7 +19,7 @@ object GiantSquidTest : ShouldSpec({
     }
 
     context("standard") {
-        val bingo = readBingo(StandardInput(4))
+        val bingo = readBingoGame(StandardInput(4))
         should("return winning score") {
             winningScore(bingo) shouldBe 2745
         }

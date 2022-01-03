@@ -11,3 +11,10 @@ fun columns(list: List<String>) = if (list.isEmpty()) {
 private fun List<String>.init() = (0 until first().length)
     .map { StringBuilder() }
     .toList()
+
+@JvmName("columnsOfListGrid")
+fun <T> columns(list: List<List<T>>) = if (list.isEmpty()) {
+    emptyList()
+} else {
+    (0 until list.first().size).map { index -> list.map { it[index] } }
+}

@@ -1,37 +1,39 @@
 package com.koendevries.aoc2021.solutions
 
+import com.koendevries.aoc2021.collections.extensions.columns
+
 typealias Draw = Int
 typealias Draws = List<Draw>
+typealias BingoCard = List<List<BingoValue>>
 typealias BingoCards = List<BingoCard>
-typealias Bingo = Pair<Draws, BingoCards>
+typealias BingoGame = Pair<Draws, BingoCards>
 
 data class BingoValue(val value: Draw, val marked: Boolean = false) {
     fun mark(number: Int) = if (value == number) BingoValue(value, true) else this
 }
 
-data class BingoCard(val values: List<List<BingoValue>>) {
-    fun mark(number: Int) = BingoCard(values.map { row -> row.map { it.mark(number) } })
-    fun hasBingo() = values.find(::isBingo) != null || transpose(values).find(::isBingo) != null
-    fun unmarkedSum() = values.flatten().filterNot { it.marked }.sumOf(BingoValue::value)
-}
+private fun BingoCard.mark(draw: Draw) = map { row -> row.map { it.mark(draw) } }
+private fun BingoCard.hasBingo() = find(::allMarked) != null || columns(this).find(::allMarked) != null
+private fun BingoCard.unmarkedSum() = flatten().filterNot(BingoValue::marked).sumOf(BingoValue::value)
 
-private fun isBingo(line: List<BingoValue>) = line.all(BingoValue::marked)
+private fun allMarked(line: List<BingoValue>) = line.all(BingoValue::marked)
 
-private fun transpose(list: List<List<BingoValue>>) = (0 until list.first().size)
-    .map { index -> list.map { it[index] } }
-
-private fun bingo(numbers: List<Int>, card: BingoCard): Pair<Draws, BingoCard> = if (card.hasBingo()) {
+private fun findBingo(draws: Draws, card: BingoCard): Pair<Draws, BingoCard> = if (card.hasBingo()) {
     Pair(emptyList(), card)
 } else {
-    val draw = numbers.first()
-    val next = bingo(numbers.drop(1), card.mark(draw))
-    Pair(listOf(draw) + next.first, next.second)
+    val draw = draws.first()
+    val (drawsTillBingo, bingoCard) = findBingo(draws.drop(1), card.mark(draw))
+    Pair(listOf(draw) + drawsTillBingo, bingoCard)
 }
 
-private fun bingoScores(bingo: Bingo) = bingo.second
-    .map { card -> Pair(bingo.first, card) }
-    .map { (draw, card) -> bingo(draw, card) }
+private fun bingoScores(bingoGame: BingoGame) = bingoGame.second
+    .map { card -> Pair(bingoGame.first, card) }
+    .map { (draw, card) -> findBingo(draw, card) }
 
-fun winningScore(bingo: Bingo) = bingoScores(bingo).minByOrNull { it.first.size }?.run { first.last() * second.unmarkedSum() }
+fun winningScore(bingoGame: BingoGame) = bingoScores(bingoGame)
+    .minByOrNull { (draws, _) -> draws.size }
+    ?.let { (draws, card) -> draws.last() * card.unmarkedSum() }
 
-fun losingScore(bingo: Bingo) = bingoScores(bingo).maxByOrNull { it.first.size }?.run { first.last() * second.unmarkedSum() }
+fun losingScore(bingoGame: BingoGame) = bingoScores(bingoGame)
+    .maxByOrNull { (draws, _) -> draws.size }
+    ?.let { (draws, card) -> draws.last() * card.unmarkedSum() }
