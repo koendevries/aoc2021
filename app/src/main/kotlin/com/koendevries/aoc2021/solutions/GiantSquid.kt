@@ -1,22 +1,24 @@
 package com.koendevries.aoc2021.solutions
 
-import com.koendevries.aoc2021.collections.extensions.columns
+import com.koendevries.aoc2021.collections.Grid
+import com.koendevries.aoc2021.collections.columns
+import com.koendevries.aoc2021.collections.indexOf
+import com.koendevries.aoc2021.collections.rows
 
 typealias Draw = Int
 typealias Draws = List<Draw>
-typealias BingoCard = List<List<BingoValue>>
 typealias BingoCards = List<BingoCard>
 typealias BingoGame = Pair<Draws, BingoCards>
 
-data class BingoValue(val value: Draw, val marked: Boolean = false) {
-    fun mark(number: Int) = if (value == number) BingoValue(value, true) else this
+data class BingoCard(val values: Grid<Int>, val marked: Grid<Boolean>) {
+    fun mark(draw: Draw) = values.indexOf(draw)
+        ?.let { point -> this.copy(marked = marked + Pair(point, true)) }
+        ?: this
+
+    fun hasBingo() = marked.rows().any { row -> row.all { it } } || marked.columns().any { column -> column.all { it } }
+
+    fun unmarkedSum() = marked.filterValues { marked -> !marked }.keys.sumOf { point -> values[point]!! }
 }
-
-private fun BingoCard.mark(draw: Draw) = map { row -> row.map { it.mark(draw) } }
-private fun BingoCard.hasBingo() = find(::allMarked) != null || columns(this).find(::allMarked) != null
-private fun BingoCard.unmarkedSum() = flatten().filterNot(BingoValue::marked).sumOf(BingoValue::value)
-
-private fun allMarked(line: List<BingoValue>) = line.all(BingoValue::marked)
 
 private fun findBingo(draws: Draws, card: BingoCard): Pair<Draws, BingoCard> = if (card.hasBingo()) {
     Pair(emptyList(), card)
