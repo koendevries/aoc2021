@@ -9,23 +9,21 @@ import io.kotest.matchers.shouldBe
 
 object HydrothermalVentureTest : ShouldSpec({
     context("example") {
+        val lineSegments = readLineSegments(ExampleInput(5))
         should("count horizontal and vertical overlaps") {
-            val lineSegments = readLineSegments(ExampleInput(5))
             crossingPoints(lineSegments, ::isUnidirectional) shouldBe 5
         }
         should("count all overlaps") {
-            val lineSegments = readLineSegments(ExampleInput(5))
             crossingPoints(lineSegments) shouldBe 12
         }
     }
 
     context("standard") {
+        val lineSegments = readLineSegments(StandardInput(5))
         should("count horizontal and vertical overlaps") {
-            val lineSegments = readLineSegments(StandardInput(5))
             crossingPoints(lineSegments, ::isUnidirectional) shouldBe 8622
         }
         should("count all overlaps") {
-            val lineSegments = readLineSegments(StandardInput(5))
             crossingPoints(lineSegments) shouldBe 22037
         }
     }

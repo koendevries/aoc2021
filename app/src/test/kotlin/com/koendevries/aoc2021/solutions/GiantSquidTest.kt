@@ -12,7 +12,6 @@ object GiantSquidTest : ShouldSpec({
         should("return winning score") {
             winningScore(bingo) shouldBe 4512
         }
-
         should("return losing score") {
             losingScore(bingo) shouldBe 1924
         }
@@ -23,7 +22,6 @@ object GiantSquidTest : ShouldSpec({
         should("return winning score") {
             winningScore(bingo) shouldBe 2745
         }
-
         should("return losing score") {
             losingScore(bingo) shouldBe 6594
         }

@@ -12,7 +12,6 @@ internal object SonarSweepTest : ShouldSpec({
         should("solve first sonar sweep") {
             sonarSweep(input, 2) shouldBe 7
         }
-
         should("solve second sonar sweep") {
             sonarSweep(input, 4) shouldBe 5
         }
@@ -23,7 +22,6 @@ internal object SonarSweepTest : ShouldSpec({
         should("solve first sonar sweep") {
             sonarSweep(input, 2) shouldBe 1832
         }
-
         should("solve second sonar sweep") {
             sonarSweep(input, 4) shouldBe 1858
         }

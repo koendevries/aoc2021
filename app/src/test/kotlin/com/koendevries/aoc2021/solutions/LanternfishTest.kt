@@ -16,6 +16,7 @@ object LanternfishTest : ShouldSpec({
             lanternfishes.count(256) shouldBe 26984457539L
         }
     }
+
     context("standard") {
         val lanternfishes = readLanternfishes(StandardInput(6))
         should("count after 80 days") {

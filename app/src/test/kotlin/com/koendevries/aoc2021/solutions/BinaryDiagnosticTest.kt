@@ -7,7 +7,6 @@ import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
 object BinaryDiagnosticTest : ShouldSpec({
-
     context("example") {
         val diagnosticReport = readDiagnosticReport(ExampleInput(3))
         should("calculate power consumption") {

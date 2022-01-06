@@ -7,7 +7,6 @@ import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
 object DiveTest : ShouldSpec({
-
     context("example") {
         val submarineCommands = readSubmarineCommands(ExampleInput(2))
         should("solve simple dive") {
@@ -27,5 +26,4 @@ object DiveTest : ShouldSpec({
             dive(submarineCommands, ::aimingSubmarineCommandHandler) shouldBe 1963088820L
         }
     }
-
 })
