@@ -19,7 +19,7 @@ fun minCost(
     costFunction: CostFunction
 ) = rangeOf(crabPositions)
     .fold(listOf<Cost>()) { costs, position -> costs + position.totalCost(crabPositions, costFunction) }
-    .minOf { totalCost -> totalCost }
+    .minOrNull()
 
 fun simpleDistanceCostFunction(from: CrabPosition, to: CrabPosition) = abs(from - to)
 
