@@ -6,7 +6,7 @@ import com.koendevries.aoc2021.io.util.StandardInput
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
-object SevenSegmentSearchKtTest : ShouldSpec({
+internal object SevenSegmentSearchKtTest : ShouldSpec({
     context("example") {
         val entries = readEntries(ExampleInput(8))
         should("count of easy digits") {

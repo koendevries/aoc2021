@@ -6,7 +6,7 @@ import com.koendevries.aoc2021.io.util.StandardInput
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
-object TreacheryOfWhalesKtTest : ShouldSpec({
+internal object TreacheryOfWhalesKtTest : ShouldSpec({
     context("example") {
         val crabPositions = readCrabPositions(ExampleInput(7))
         should("find min cost by distance") {

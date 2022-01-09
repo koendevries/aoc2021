@@ -7,7 +7,7 @@ import com.koendevries.aoc2021.io.util.StandardInput
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
-object HydrothermalVentureTest : ShouldSpec({
+internal object HydrothermalVentureTest : ShouldSpec({
     context("example") {
         val lineSegments = readLineSegments(ExampleInput(5))
         should("count horizontal and vertical overlaps") {

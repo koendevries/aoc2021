@@ -6,7 +6,7 @@ import com.koendevries.aoc2021.io.util.StandardInput
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
-object GiantSquidTest : ShouldSpec({
+internal object GiantSquidTest : ShouldSpec({
     context("example") {
         val bingo = readBingoGame(ExampleInput(4))
         should("return winning score") {

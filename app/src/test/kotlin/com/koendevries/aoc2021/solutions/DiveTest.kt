@@ -6,7 +6,7 @@ import com.koendevries.aoc2021.io.util.StandardInput
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 
-object DiveTest : ShouldSpec({
+internal object DiveTest : ShouldSpec({
     context("example") {
         val submarineCommands = readSubmarineCommands(ExampleInput(2))
         should("solve simple dive") {
