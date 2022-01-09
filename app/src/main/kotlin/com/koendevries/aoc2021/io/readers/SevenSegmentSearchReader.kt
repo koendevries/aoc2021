@@ -2,18 +2,7 @@ package com.koendevries.aoc2021.io.readers
 
 import com.koendevries.aoc2021.io.File
 import com.koendevries.aoc2021.io.util.Input
-
-typealias Entries = List<Entry>
-
-data class Entry(val patterns: Patterns, val output: Output)
-typealias Patterns = List<Pattern>
-typealias Output = List<Pattern>
-typealias Segments = Set<Segment>
-typealias Segment = Char
-
-sealed interface Pattern
-data class EasyPattern(val segments: Segments) : Pattern
-data class HardPattern(val segments: Segments) : Pattern
+import com.koendevries.aoc2021.solutions.*
 
 fun readEntries(input: Input): Entries = File(input)
     .readLines()
