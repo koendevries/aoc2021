@@ -1,5 +1,6 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.6.0"
+    id("io.kotest") version "0.3.8"
 }
 
 repositories {
@@ -17,4 +18,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:${Versions.kotest}")
     testImplementation("io.kotest:kotest-assertions-core-jvm:${Versions.kotest}")
+}
+
+tasks.named<Test>("test") {
+    dependsOn("kotest")
 }
