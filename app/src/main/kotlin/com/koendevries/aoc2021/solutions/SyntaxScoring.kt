@@ -3,8 +3,9 @@ package com.koendevries.aoc2021.solutions
 import com.koendevries.aoc2021.collections.extensions.median
 
 sealed interface Chunks
-data class CorruptedChunks(val firstIllegalChar: Char) : Chunks
+object CorrectChunks : Chunks
 data class IncompleteChunks(val incomplete: List<Char>) : Chunks
+data class CorruptedChunks(val firstIllegalChar: Char) : Chunks
 
 private fun CorruptedChunks.syntaxErrorScore() = when (firstIllegalChar) {
     ')' -> 3L
@@ -14,9 +15,9 @@ private fun CorruptedChunks.syntaxErrorScore() = when (firstIllegalChar) {
     else -> throw IllegalStateException()
 }
 
-private fun IncompleteChunks.score() = incomplete.fold(0L, ::addIncomplete)
+private fun IncompleteChunks.score() = incomplete.foldRight(0L, ::addIncomplete)
 
-private fun addIncomplete(score: Long, opening: Char): Long = 5 * score + when (opening) {
+private fun addIncomplete(opening: Char, score: Long): Long = 5 * score + when (opening) {
     '(' -> 1L
     '[' -> 2L
     '{' -> 3L
