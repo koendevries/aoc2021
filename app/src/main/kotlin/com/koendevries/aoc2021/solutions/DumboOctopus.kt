@@ -12,21 +12,16 @@ private fun step(energyGrid: EnergyGrid) = energyGrid
     .let { grid -> grid.withFlashes(flashingPoints(grid)) }
     .let { grid -> grid to grid.countFlashes() }
 
-private fun flashingPoints(grid: Map<Point, Int>) =
-    grid.filter { (_, energy) -> energy > 9 }.keys.toList()
+private fun flashingPoints(grid: Grid<Energy>) = grid.filter { (_, energy) -> energy > 9 }.keys.toList()
 
-private fun EnergyGrid.withFlashes(flashes: List<Point>): EnergyGrid = when {
-    flashes.isEmpty() -> this
-    else -> this.withNextTodo(flashes)
-}
-
-private fun EnergyGrid.withNextTodo(todos: List<Point>): EnergyGrid {
-    val point = todos.first()
-    val energy = this[point]!!
+private fun EnergyGrid.withFlashes(flashes: List<Point>): EnergyGrid {
+    val point = flashes.firstOrNull()
+    val energy = point?.let(this::getValue)
     return when {
-        energy == 0 -> withFlashes(flashes = todos.drop(1))
-        energy < 9 -> plus(Pair(point, energy + 1)).withFlashes(flashes = todos.drop(1))
-        else -> plus(point to 0).withFlashes(flashes = todos.drop(1) + allNeighboursOf(point))
+        energy == null -> this
+        energy == 0 -> this.withFlashes(flashes.drop(1))
+        energy < 9 -> this.plus(Pair(point, energy + 1)).withFlashes(flashes.drop(1))
+        else -> this.plus(point to 0).withFlashes(flashes.drop(1) + allNeighboursOf(point))
     }
 }
 
