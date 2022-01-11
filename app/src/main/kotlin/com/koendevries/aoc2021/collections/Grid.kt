@@ -21,13 +21,21 @@ fun <T> Grid<T>.indexOf(search: T) = entries.firstOrNull { (_, value) -> value =
 
 fun <T> Grid<T>.toFalse() = entries.associate { (point, _) -> point to false }
 
-fun <T> Grid<T>.neighboursOf(position: Point): List<Point> {
-    val (rowIndex, columnIndex) = position
-    return setOf(
-        Point(rowIndex - 1, columnIndex),
-        Point(rowIndex + 1, columnIndex),
-        Point(rowIndex, columnIndex - 1),
-        Point(rowIndex, columnIndex + 1)
-    )
-        .filter(this::containsKey)
-}
+
+fun <T> Grid<T>.straightNeighboursOf(point: Point): List<Point> = STRAIGHT_NEIGHBOURS
+    .map(point::plus)
+    .filter(this::containsKey)
+
+
+fun <T> Grid<T>.allNeighboursOf(point: Point): List<Point> = STRAIGHT_NEIGHBOURS
+    .plus(DIAGONAL_NEIGHBOURS)
+    .map(point::plus)
+    .filter(this::containsKey)
+
+val STRAIGHT_NEIGHBOURS = setOf(
+    Point(-1, 0), Point(0, -1), Point(0, 1), Point(1, 0)
+)
+
+val DIAGONAL_NEIGHBOURS = setOf(
+    Point(-1, -1), Point(-1, 1), Point(1, -1), Point(1, 1)
+)
